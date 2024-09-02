@@ -5,7 +5,7 @@ const taskStatus = {
     ON_HOLD: 'onHold',
     IN_PROGRESS: 'inPRogress',
     UNDERREVIEW: 'underReview',
-    COMPLETE: 'complete'
+    COMPLETE: 'completed'
 } as const
 
 export type TaskStatus = typeof taskStatus[keyof typeof taskStatus]
