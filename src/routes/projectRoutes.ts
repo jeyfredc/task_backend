@@ -9,8 +9,10 @@ import { authenticate } from "../middleware/auth";
 
 const router = Router()
 
+// Esto lo que hace es solicitar autenticacion  en todas las rutas por si alguna se olvida
+router.use(authenticate)
+
 router.post('/',
-    authenticate,
     body('projectName').notEmpty().withMessage('El nombre del proyecto es obligatorio'),
     body('clientName').notEmpty().withMessage('El nombre del cliente es obligatorio'),
     body('description').notEmpty().withMessage('La descripción del proyecto es obligatorio'),
