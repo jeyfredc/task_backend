@@ -7,7 +7,8 @@ export interface IProject extends Document  {
     clientName: string
     description: string
     tasks: PopulatedDoc<ITask & Document>[],
-    manager: PopulatedDoc<IUser & Document>
+    manager: PopulatedDoc<IUser & Document>,
+    team: PopulatedDoc<IUser &Document>[]  
 }
 
 const ProjectSchema: Schema = new Schema({
@@ -22,7 +23,11 @@ const ProjectSchema: Schema = new Schema({
         type: Types.ObjectId,
         ref: 'User'
         
-    }
+    },
+    team: [{
+        type: Types.ObjectId,
+        ref: 'User'
+    }],
 }, {timestamps: true})
 
 
