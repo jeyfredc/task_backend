@@ -42,7 +42,10 @@ export class TaskController {
                     error: error.message
                 })
             }
-            res.json(req.task)
+
+            const task = await  Task.findById(req.task.id)
+                        .populate({path:'completedBy.user', select: 'id name email'})
+            res.json(task)
 
         } catch (error) {
             res.status(500).json({ error: 'Hubo un error' })
@@ -91,6 +94,11 @@ export class TaskController {
 
             req.task.status = status
 
+            const data = {
+                user: req.user.id,
+                status: status
+            }
+            req.task.completedBy.push(data)
             await req.task.save()
 
             res.json("Tarea Actualizada")
