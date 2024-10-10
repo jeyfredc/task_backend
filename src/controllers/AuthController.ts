@@ -5,7 +5,6 @@ import User from "../models/User"
 import { checkPassword, hashPassword } from "../utils/auth"
 import Token from "../models/Token"
 import { generateToken } from "../utils/token"
-import { transporter } from "../config/nodemailer"
 import { AuthEmail } from "../emails/AuthEmail"
 import { generateJWT } from "../utils/jwt"
 
