@@ -1,9 +1,10 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
+import Note from "./Note";
 
 const taskStatus = {
     PENDING: 'pending',
     ON_HOLD: 'onHold',
-    IN_PROGRESS: 'inPRogress',
+    IN_PROGRESS: 'inProgress',
     UNDERREVIEW: 'underReview',
     COMPLETE: 'completed'
 } as const
@@ -45,6 +46,13 @@ const TaskSchema: Schema = new Schema({
         ref: 'Note'
     }]
 }, { timestamps: true })
+
+/* Middleware */
+TaskSchema.pre('deleteOne', {document: true, query:false}, async function(){
+    const taskId = this._id
+    if(!taskId) return
+    await Note.deleteMany({task: taskId})
+})
 
 const Task = mongoose.model<ITask>('Task', TaskSchema)
 
